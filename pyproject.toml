@@ -1,0 +1,108 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rl-library"
+version = "0.1.0"
+description = "Gedeelde Python library voor Rijnland"
+requires-python = ">=3.11"
+dependencies = [
+    "python-dotenv",
+    "pandas",
+    "geopandas",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["rijnland_core*", "domein_obj_func*", "rijnland_dataplatform*"]
+
+# ---------------------------------------------------------------------------
+# Rijnland — Ruff + mypy configuratie
+# Auto-detecteerbaar door zowel Ruff als mypy (bestandsnaam pyproject.toml).
+#   ruff check .        ruff format .        mypy .
+# ---------------------------------------------------------------------------
+
+[tool.ruff]
+# Afspraak #2: regellengte 88 (Black-compatibel).
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E", "W",   # pycodestyle
+    "F",        # pyflakes
+    "I",        # isort — afspraak #5 (importvolgorde)
+    "N",        # pep8-naming — afspraken #3, #4
+    "D",        # pydocstyle — afspraken #6, #7
+    "ANN",      # flake8-annotations — afspraak #8 (type hints)
+    "UP",       # pyupgrade
+]
+ignore = [
+    "I001",
+    # Afspraak #5: `import *` is toegestaan in dit project.
+    "F403",
+    "F405",
+]
+
+# ---------------------------------------------------------------------------
+# ZACHTE AFSPRAKEN — niet mechanisch afdwingbaar door Ruff of mypy.
+# Deze staan volledig uitgewerkt in COPILOT.md en worden NIET door een tool
+# gecontroleerd. Ze horen hier alleen ter herinnering.
+#
+#   * Afspraak #10 — GEEN list comprehensions.
+#     Ruff kent geen regel die list/dict/set-comprehensions verbiedt.
+#     "C4" (flake8-comprehensions) signaleert alleen ONNODIGE comprehensions,
+#     maar verbiedt ze niet. Dit blijft dus een handmatige/AI.md-afspraak.
+#
+#   * Afspraak #7 / #13 — docstrings en commentaar in het ENGELS.
+#     pydocstyle (convention = "google", zie onder) controleert de VORM en
+#     AANWEZIGHEID van docstrings, nooit de TAAL waarin ze geschreven zijn.
+#     Ook dit is een zachte afspraak.
+# ---------------------------------------------------------------------------
+
+[tool.ruff.lint.pydocstyle]
+# Afspraak #7: Google-stijl docstrings (vorm; de taal is een zachte afspraak).
+convention = "google"
+
+[tool.ruff.lint.pep8-naming]
+# Afspraak #1: domeinconcepten mogen Nederlandse namen hebben in PascalCase
+# (bijv. GemaalStatus). Ruff's pep8-naming-regels controleren alleen de
+# casing/structuur (PascalCase/snake_case/UPPER_SNAKE_CASE), niet de taal
+# van het woord zelf — dus Nederlandse domeinnamen worden hierdoor niet
+# afgekeurd, zolang de casing klopt.
+
+[tool.ruff.lint.per-file-ignores]
+# Afspraak #6 (uitzondering te bepalen door het team): voorbeeld hieronder
+# voor het vrijstellen van verkenningsscripts of testcode van docstring-eisen.
+# Vul de paden aan zodra het team dit heeft afgesproken.
+# "scripts/verkennend/*.py" = ["D"]
+# "tests/*.py" = ["D"]
+
+[tool.ruff.format]
+# Sluit aan bij afspraak #2 (line-length = 88, Black-compatibel).
+quote-style = "double"
+indent-style = "space"
+
+# ---------------------------------------------------------------------------
+# Type checking (mypy) — afspraak #8: type hints verplicht voor functies in
+# de rijnland-library.
+# ---------------------------------------------------------------------------
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+# Vervang "rijnland_library" door de daadwerkelijke package-naam.
+module = "rijnland_library.*"
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+
+[[tool.mypy.overrides]]
+# Losse scripts buiten de library: type hints zijn aanbevolen maar niet
+# verplicht (afspraak #8).
+module = "scripts.*"
+disallow_untyped_defs = false
+check_untyped_defs = false
