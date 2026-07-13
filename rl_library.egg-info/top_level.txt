@@ -1,3 +1,0 @@
-domein_obj_func
-rijnland_core
-rijnland_dataplatform

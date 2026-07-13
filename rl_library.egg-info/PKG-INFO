@@ -1,8 +1,0 @@
-Metadata-Version: 2.4
-Name: rl-library
-Version: 0.1.0
-Summary: Gedeelde Python library voor Rijnland
-Requires-Python: >=3.11
-Requires-Dist: python-dotenv
-Requires-Dist: pandas
-Requires-Dist: geopandas
