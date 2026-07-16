@@ -1,5 +1,7 @@
 def salutations(name: str) -> str:
     return f"Salutations, {name}!"
 
-def greetings(name: str) -> str:
-    return f"Hello, {name}!"
+
+
+def goodbye(name: str) -> str:
+    return f"Goodbye {name}"
