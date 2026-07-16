@@ -1,2 +1,2 @@
 def gemaal(code: str) -> str:
-    return f"Gemaal, {code}!"
+    return f"Gemaaltje, {code}!"
