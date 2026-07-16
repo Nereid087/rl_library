@@ -3,4 +3,4 @@ def salutations(name: str) -> str:
 
 
 def greetings(name: str) -> str:
-    return f"Greetings, {name}!"
+    return f"Hello, {name}!"
