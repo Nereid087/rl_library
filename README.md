@@ -1,93 +1,117 @@
 # Hackathon
 
-Welcome! Follow the steps below to get set up. This takes about 5 minutes.
+Welkom! Volg de stappen hieronder om alles klaar te zetten. Dit duurt ongeveer 5 tot 10 minuten.
 
-## 1. Clone the repository
+## 1. Clone de repository
 
-Open a terminal (or the terminal in VS Code), go to the folder where you want the project, and run:
+Open een terminal (of de terminal in VS Code), ga naar de map waar je het project wilt hebben en voer uit:
 
 ```bash
-git clone https://github.com/<your-username>/<repo-name>.git
-cd <repo-name>
+git clone https://github.com/<jouw-gebruikersnaam>/<repo-naam>.git
+cd <repo-naam>
 ```
 
-> **Tip:** Clone the repo *next to* your existing venv folder, not inside it.
+> **Tip:** Heb je al een venv? Clone de repo dan *naast* je bestaande venv-map, niet erin.
 
-## 2. Open the folder in VS Code
+## 2. Open de map in VS Code
 
-**File → Open Folder…** and select the cloned `<repo-name>` folder.
+**File → Open Folder…** en selecteer de gecloonde map `<repo-naam>`.
 
-## 3. Select your existing virtual environment
+## 3. Koppel een virtual environment
 
-You already have a working venv. Point VS Code to it:
+Kies de situatie die bij jou past:
 
-1. Press `Ctrl+Shift+P` (Mac: `Cmd+Shift+P`).
-2. Choose **Python: Select Interpreter**.
-3. Choose **Enter interpreter path… → Find…**
-4. Browse to the Python executable inside your venv:
+- **Je was bij een van de Python-lessen** → je hebt al een werkende venv. Volg **3A**.
+- **Je was niet bij de Python-lessen** → je maakt zelf een venv aan. Volg **3B**.
+
+### 3A. Je hebt al een venv
+
+Laat VS Code naar je bestaande venv verwijzen:
+
+1. Druk op `Ctrl+Shift+P` (Mac: `Cmd+Shift+P`).
+2. Kies **Python: Select Interpreter**.
+3. Kies **Enter interpreter path… → Find…**
+4. Navigeer naar het Python-bestand in je venv:
    - **Windows:** `...\venv\Scripts\python.exe`
    - **Mac/Linux:** `.../venv/bin/python`
 
-Then **close any open terminals and open a new one** (`Terminal → New Terminal`). It should now show your venv name at the start of the prompt.
+**Sluit daarna alle open terminals en open een nieuwe** (`Terminal → New Terminal`). Aan het begin van de regel zie je nu de naam van je venv.
 
-> ⚠️ Do **not** move or copy your venv into this folder. Venvs break when relocated.
+> ⚠️ Verplaats of kopieer je venv **niet** naar deze map. Een venv werkt niet meer als je hem verplaatst.
 
-## 4. Working in notebooks?
+Ga verder naar stap 4.
 
-Notebooks have their own kernel picker. Open a `.ipynb` file, click **Select Kernel** in the top-right corner, and choose the same venv.
+### 3B. Je maakt zelf een venv aan
 
-## 5. Install the required packages
+Je maakt de venv aan via VS Code. VS Code koppelt hem dan meteen aan het project en installeert de benodigde packages.
 
-With your venv active in the terminal, run:
+1. Druk op `Ctrl+Shift+P` (Mac: `Cmd+Shift+P`).
+2. Kies **Python: Create Environment**.
+3. Kies **Venv**.
+4. Kies de hoogste Python-versie uit de lijst.
+5. Vink **requirements.txt** aan als VS Code vraagt welke dependencies je wilt installeren, en klik op **OK**.
 
-```bash
-pip install -r requirements.txt
-```
+Wacht tot VS Code klaar is (rechtsonder zie je de voortgang). Er staat nu een map `.venv` in je project.
 
-## 6. Check your setup
+**Sluit daarna alle open terminals en open een nieuwe** (`Terminal → New Terminal`). Aan het begin van de regel zie je nu `(.venv)`.
 
-Run this in a notebook cell or Python file:
+## 4. Werk je in notebooks?
+
+Notebooks hebben een eigen kernelkeuze. Open een `.ipynb`-bestand, klik rechtsboven op **Select Kernel** en kies dezelfde venv als in stap 3.
+
+## 5. Controleer je setup
+
+Voer dit uit in een notebookcel of Python-bestand:
 
 ```python
 import sys
 print(sys.executable)
 ```
 
-The path should point to **your venv**. If it points somewhere else, repeat step 3 (or step 4 for notebooks).
+Het pad moet naar **jouw venv** wijzen. Wijst het ergens anders naartoe? Herhaal dan stap 3 (of stap 4 voor notebooks).
 
 ---
 
-## Working with Git during the hackathon
+## Werken met Git tijdens de hackathon
 
-Each team works on its **own branch**. Never push directly to `main`.
+Elk team werkt op een **eigen branch**. Push nooit rechtstreeks naar `main`.
 
-**Once, at the start** (replace `team-name` with your team's name):
+**Eenmalig, aan het begin.** Eén teamlid maakt de branch aan (vervang `teamnaam` door de naam van je team):
 
 ```bash
-git switch -c team-name
-git push -u origin team-name
+git switch -c teamnaam
+git push -u origin teamnaam
 ```
 
-**While working:**
+De andere teamleden halen de branch op:
 
 ```bash
-git pull                     # get your teammates' latest changes
+git fetch
+git switch teamnaam
+```
+
+Controleer met `git status` of je op de goede branch zit. Op de eerste regel moet `On branch teamnaam` staan.
+
+**Tijdens het werken:**
+
+```bash
+git pull                                   # haal de laatste wijzigingen van je teamgenoten op
 git add .
-git commit -m "Short description of what you changed"
+git commit -m "Korte beschrijving van je wijziging"
 git push
 ```
 
-Pull before you start working and before you push. That prevents most conflicts.
+Doe altijd eerst een `git pull` voordat je begint en voordat je pusht. Zo voorkom je de meeste conflicten.
 
-## Folder structure
+## Mappenstructuur
 
 ```
-<repo-name>/
+<repo-naam>/
 ├── data/          # datasets
-├── notebooks/     # exploration notebooks
-├── src/           # reusable Python code
+├── notebooks/     # verkennende notebooks
+├── src/           # herbruikbare Python-code
 ├── requirements.txt
 └── README.md
 ```
 
-*(Adjust to match the actual structure.)*
+*(Pas aan naar de daadwerkelijke structuur.)*
