@@ -164,7 +164,21 @@ Een venv is een afgeschermde Python-omgeving met alle packages die je nodig hebt
 
 ---
 
-## Stap 5. Controleer of alles werkt
+## Stap 5. Installeer de Rijnland-library
+
+In deze repository zit een eigen Python-library: `rijnland_core`. Die installeer je één keer in je venv. Daarna kun je hem in elk notebook gebruiken.
+
+1. Open in de Explorer het bestand `installeer.ipynb`. Het staat in de hoofdmap, niet in een casusmap.
+2. Klik rechtsboven in het notebook op **Select Kernel**. Kies **Python Environments** en daarna dezelfde venv als in stap 4.
+3. Klik in de cel met `import sys` en druk op `Shift+Enter`.
+4. Controleer: er staat `Goed: je zit in een venv.` Staat er `Let op`? Kies dan opnieuw de kernel, zoals in 2.
+5. Klik in de cel met `%pip install -e .` en druk op `Shift+Enter`.
+6. Wacht tot de cel klaar is. Dit kan even duren.
+7. Controleer: onderaan staat `Successfully installed rl-library-0.1.0`.
+
+---
+
+## Stap 6. Controleer of alles werkt
 
 1. Klik in de Explorer met de rechtermuisknop op de map `casus_afkalving`, dan op de map van je team (bijvoorbeeld `team_1`), en kies **New File…**
 2. Noem het bestand `test.ipynb` en druk op Enter. Er opent een notebook.
@@ -174,15 +188,17 @@ Een venv is een afgeschermde Python-omgeving met alle packages die je nodig hebt
    ```python
    import sys
    print(sys.executable)
+   import rijnland_core
    ```
 
 5. Druk op `Shift+Enter` om de cel uit te voeren.
 6. Controleer: het pad dat verschijnt moet naar **jouw venv** wijzen (er staat `venv` of `.venv` in). Staat er iets anders? Herhaal stap 4 en kies daarna opnieuw de kernel.
-7. Werkt het? Verwijder `test.ipynb` weer: rechtermuisknop op het bestand → **Delete**.
+7. Controleer: onder het pad staat geen foutmelding. Zie je `ModuleNotFoundError: No module named 'rijnland_core'`? Herhaal dan stap 5. Let op dat je daar dezelfde venv kiest als hier.
+8. Werkt het? Verwijder `test.ipynb` weer: rechtermuisknop op het bestand → **Delete**.
 
 ---
 
-## Stap 6. Klaar met de setup!
+## Stap 7. Klaar met de setup!
 
 Ga nu naar je eerste opdracht. Open in de Explorer het teambestand van jouw team:
 
@@ -214,6 +230,7 @@ Daar staat wat je samen met je team gaat doen. Ook als je straks met casus water
 │   ├── team_2/
 │   ├── team_3/
 │   └── team_4/
+├── installeer.ipynb       # installeert de Rijnland-library (stap 5)
 ├── requirements.txt
 └── README.md              # dit bestand
 ```
