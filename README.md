@@ -115,3 +115,16 @@ Doe altijd eerst een `git pull` voordat je begint en voordat je pusht. Zo voorko
 ```
 
 *(Pas aan naar de daadwerkelijke structuur.)*
+from pathlib import Path
+
+CASES = ["casus_afkalving", "casus_waterdiepte"]   # your case folder names
+TEAMS = 4
+
+for case in CASES:
+    for t in range(1, TEAMS + 1):
+        folder = Path(case) / f"team_{t}"
+        folder.mkdir(parents=True, exist_ok=True)
+        (folder / "README.md").write_text(
+            f"# Team {t}\n\n**Teamnaam:** \n\n**Teamleden:**\n\n- \n",
+            encoding="utf-8",
+        )
