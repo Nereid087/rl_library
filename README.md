@@ -1,130 +1,219 @@
 # Hackathon
 
-Welkom! Volg de stappen hieronder om alles klaar te zetten. Dit duurt ongeveer 5 tot 10 minuten.
+Welkom bij de hackathon! In deze README zet je stap voor stap alles klaar op je laptop. Dit duurt ongeveer 15 minuten.
 
-## 1. Clone de repository
-
-Open een terminal (of de terminal in VS Code), ga naar de map waar je het project wilt hebben en voer uit:
-
-```bash
-git clone https://github.com/<jouw-gebruikersnaam>/<repo-naam>.git
-cd <repo-naam>
-```
-
-> **Tip:** Heb je al een venv? Clone de repo dan *naast* je bestaande venv-map, niet erin.
-
-## 2. Open de map in VS Code
-
-**File → Open Folder…** en selecteer de gecloonde map `<repo-naam>`.
-
-## 3. Koppel een virtual environment
-
-Kies de situatie die bij jou past:
-
-- **Je was bij een van de Python-lessen** → je hebt al een werkende venv. Volg **3A**.
-- **Je was niet bij de Python-lessen** → je maakt zelf een venv aan. Volg **3B**.
-
-### 3A. Je hebt al een venv
-
-Laat VS Code naar je bestaande venv verwijzen:
-
-1. Druk op `Ctrl+Shift+P` (Mac: `Cmd+Shift+P`).
-2. Kies **Python: Select Interpreter**.
-3. Kies **Enter interpreter path… → Find…**
-4. Navigeer naar het Python-bestand in je venv:
-   - **Windows:** `...\venv\Scripts\python.exe`
-   - **Mac/Linux:** `.../venv/bin/python`
-
-**Sluit daarna alle open terminals en open een nieuwe** (`Terminal → New Terminal`). Aan het begin van de regel zie je nu de naam van je venv.
-
-> ⚠️ Verplaats of kopieer je venv **niet** naar deze map. Een venv werkt niet meer als je hem verplaatst.
-
-Ga verder naar stap 4.
-
-### 3B. Je maakt zelf een venv aan
-
-Je maakt de venv aan via VS Code. VS Code koppelt hem dan meteen aan het project en installeert de benodigde packages.
-
-1. Druk op `Ctrl+Shift+P` (Mac: `Cmd+Shift+P`).
-2. Kies **Python: Create Environment**.
-3. Kies **Venv**.
-4. Kies de hoogste Python-versie uit de lijst.
-5. Vink **requirements.txt** aan als VS Code vraagt welke dependencies je wilt installeren, en klik op **OK**.
-
-Wacht tot VS Code klaar is (rechtsonder zie je de voortgang). Er staat nu een map `.venv` in je project.
-
-**Sluit daarna alle open terminals en open een nieuwe** (`Terminal → New Terminal`). Aan het begin van de regel zie je nu `(.venv)`.
-
-## 4. Werk je in notebooks?
-
-Notebooks hebben een eigen kernelkeuze. Open een `.ipynb`-bestand, klik rechtsboven op **Select Kernel** en kies dezelfde venv als in stap 3.
-
-## 5. Controleer je setup
-
-Voer dit uit in een notebookcel of Python-bestand:
-
-```python
-import sys
-print(sys.executable)
-```
-
-Het pad moet naar **jouw venv** wijzen. Wijst het ergens anders naartoe? Herhaal dan stap 3 (of stap 4 voor notebooks).
+Lees elke stap helemaal voordat je begint. Loop je ergens vast? Steek je hand op, dan helpt een begeleider je.
 
 ---
 
-## Werken met Git tijdens de hackathon
+## Stap 0. Voordat je begint
 
-Elk team werkt op een **eigen branch**. Push nooit rechtstreeks naar `main`.
+Controleer dat je het volgende hebt:
 
-**Eenmalig, aan het begin.** Eén teamlid maakt de branch aan (vervang `teamnaam` door de naam van je team):
+1. **Een GitHub-account.** Heb je er nog geen? Maak er een aan op [github.com](https://github.com).
+2. **Toegang tot deze repository.** Je hebt een uitnodiging gekregen per e-mail. Klik in die e-mail op **View invitation** en daarna op **Accept invitation**. Kun je de e-mail niet vinden? Ga naar [github.com/notifications](https://github.com/notifications).
+3. **VS Code**, met de extensies **Python** en **Jupyter**. Je installeert extensies via het blokjes-icoon in de linkerbalk van VS Code.
+4. **Je teamnummer.** Dit hoor je van de begeleider. Je zit in team 1, 2, 3 of 4.
+
+### Kies hoe je met Git werkt
+
+Je kunt op twee manieren met Git werken. Kies er **één** en volg in de rest van deze README alleen de stappen voor jouw keuze.
+
+| | **Route A: Terminal** | **Route B: GitHub Desktop** |
+|---|---|---|
+| Wat is het? | Je typt Git-commando's in de terminal van VS Code | Een programma met knoppen voor Git |
+| Wat heb je nodig? | Git geïnstalleerd op je laptop | [GitHub Desktop](https://desktop.github.com) geïnstalleerd |
+| Geschikt voor | Je hebt al eens met Git gewerkt | Je hebt nog nooit met Git gewerkt |
+
+**Route A: controleer of Git geïnstalleerd is.** Open VS Code, klik bovenin op **Terminal → New Terminal** en typ:
 
 ```bash
-git switch -c teamnaam
-git push -u origin teamnaam
+git --version
 ```
 
-De andere teamleden halen de branch op:
+Zie je iets als `git version 2.45.0`? Dan is Git geïnstalleerd. Zie je een foutmelding? Installeer Git via [git-scm.com](https://git-scm.com/downloads), sluit VS Code helemaal af en open het opnieuw.
 
-```bash
-git fetch
-git switch teamnaam
-```
+**Route B: log in bij GitHub Desktop.** Open GitHub Desktop en log in met je GitHub-account. Op Windows: **File → Options → Accounts**. Op Mac: **GitHub Desktop → Settings → Accounts**. Klik op **Sign in** en volg de stappen in je browser.
 
-Controleer met `git status` of je op de goede branch zit. Op de eerste regel moet `On branch teamnaam` staan.
+---
 
-**Tijdens het werken:**
+## Stap 1. Haal de repository naar je laptop (clonen)
 
-```bash
-git pull                                   # haal de laatste wijzigingen van je teamgenoten op
-git add .
-git commit -m "Korte beschrijving van je wijziging"
-git push
-```
+Met clonen maak je een kopie van de repository op je eigen laptop.
 
-Doe altijd eerst een `git pull` voordat je begint en voordat je pusht. Zo voorkom je de meeste conflicten.
+> **Heb je al een venv uit de Python-lessen?** Zet de repository dan *naast* je venv-map, niet erin.
+
+### Route A: Terminal
+
+1. Open VS Code en open een terminal: **Terminal → New Terminal**.
+2. Ga naar de map waar je het project wilt hebben. Bijvoorbeeld je map Documenten:
+
+   ```bash
+   cd ~/Documents
+   ```
+
+3. Clone de repository:
+
+   ```bash
+   git clone https://github.com/<gebruikersnaam>/<repo-naam>.git
+   ```
+
+4. Ga de nieuwe map in:
+
+   ```bash
+   cd <repo-naam>
+   ```
+
+5. Voer dit commando één keer uit. Het zorgt ervoor dat `git pull` later altijd goed werkt:
+
+   ```bash
+   git config --global pull.rebase false
+   ```
+
+### Route B: GitHub Desktop
+
+1. Open GitHub Desktop.
+2. Klik op **File → Clone repository**.
+3. Klik bovenin op het tabblad **GitHub.com**.
+4. Klik in de lijst op **<repo-naam>**. Staat hij er niet tussen? Dan heb je de uitnodiging nog niet geaccepteerd (zie stap 0).
+5. Onder **Local path** zie je waar de map komt. Onthoud dit pad.
+6. Klik op **Clone**.
+
+---
+
+## Stap 2. Ga naar de branch van je team
+
+Elk team werkt op een eigen **branch**: een eigen versie van het project. De branches heten `team-1`, `team-2`, `team-3` en `team-4`.
+
+Je werkt **nooit** op de branch `main`. Daar staat alleen de startversie.
+
+In de voorbeelden hieronder staat `team-1`. **Vervang `1` door jouw teamnummer.**
+
+### Route A: Terminal
+
+1. Typ in de terminal (je zit nog in de map `<repo-naam>`):
+
+   ```bash
+   git switch team-1
+   ```
+
+2. Controleer of het gelukt is:
+
+   ```bash
+   git status
+   ```
+
+   Op de eerste regel moet staan: `On branch team-1`.
+
+### Route B: GitHub Desktop
+
+1. Klik bovenin op **Current branch**.
+2. Klik in de lijst op **team-1**.
+3. Controleer: bovenin bij **Current branch** staat nu `team-1`.
+
+---
+
+## Stap 3. Open de repository in VS Code
+
+### Route A: Terminal
+
+1. Klik in VS Code op **File → Open Folder…**
+2. Ga naar de map `<repo-naam>` die je in stap 1 hebt gemaakt en klik op **Openen** (Mac: **Open**).
+
+### Route B: GitHub Desktop
+
+1. Klik in GitHub Desktop op **Repository → Open in Visual Studio Code**.
+
+### Controleer (beide routes)
+
+Links in VS Code (de **Explorer**) zie je nu de mappen van het project, waaronder `casus_afkalving` en `casus_waterdiepte`. Zie je de Explorer niet? Klik op het bovenste icoon in de linkerbalk (twee papiertjes).
+
+---
+
+## Stap 4. Koppel een virtual environment (venv)
+
+Een venv is een afgeschermde Python-omgeving met alle packages die je nodig hebt.
+
+- **Was je bij een van de Python-lessen?** Dan heb je al een werkende venv. Volg **4A**.
+- **Was je niet bij de Python-lessen?** Dan maak je nu een venv aan. Volg **4B**.
+
+### 4A. Je hebt al een venv
+
+1. Druk in VS Code op `Ctrl+Shift+P` (Mac: `Cmd+Shift+P`). Bovenin opent een zoekbalk.
+2. Typ `Select Interpreter` en klik op **Python: Select Interpreter**.
+3. Klik op **Enter interpreter path…** en daarna op **Find…**
+4. Ga naar je venv-map en kies het Python-bestand:
+   - **Windows:** `venv\Scripts\python.exe`
+   - **Mac:** `venv/bin/python`
+5. **Sluit alle open terminals**: klik in het terminalvenster op het prullenbakje. Open daarna een nieuwe: **Terminal → New Terminal**.
+6. Controleer: aan het begin van de regel in de terminal staat nu de naam van je venv tussen haakjes, bijvoorbeeld `(venv)`.
+
+> ⚠️ Verplaats of kopieer je venv **niet** naar de projectmap. Een venv werkt niet meer als je hem verplaatst.
+
+### 4B. Je maakt een nieuwe venv
+
+1. Druk in VS Code op `Ctrl+Shift+P` (Mac: `Cmd+Shift+P`). Bovenin opent een zoekbalk.
+2. Typ `Create Environment` en klik op **Python: Create Environment**.
+3. Klik op **Venv**.
+4. Kies de hoogste Python-versie uit de lijst.
+5. VS Code vraagt welke dependencies je wilt installeren. Vink **requirements.txt** aan en klik op **OK**.
+6. Wacht tot VS Code klaar is. Rechtsonder zie je de voortgang. Dit kan een paar minuten duren.
+7. Controleer: in de Explorer staat nu een map `.venv`.
+8. **Sluit alle open terminals**: klik in het terminalvenster op het prullenbakje. Open daarna een nieuwe: **Terminal → New Terminal**.
+9. Controleer: aan het begin van de regel in de terminal staat nu `(.venv)`.
+
+---
+
+## Stap 5. Controleer of alles werkt
+
+1. Klik in de Explorer met de rechtermuisknop op de map `casus_afkalving`, dan op de map van je team (bijvoorbeeld `team_1`), en kies **New File…**
+2. Noem het bestand `test.ipynb` en druk op Enter. Er opent een notebook.
+3. Klik rechtsboven in het notebook op **Select Kernel**. Kies **Python Environments** en daarna dezelfde venv als in stap 4.
+4. Typ in de eerste cel:
+
+   ```python
+   import sys
+   print(sys.executable)
+   ```
+
+5. Druk op `Shift+Enter` om de cel uit te voeren.
+6. Controleer: het pad dat verschijnt moet naar **jouw venv** wijzen (er staat `venv` of `.venv` in). Staat er iets anders? Herhaal stap 4 en kies daarna opnieuw de kernel.
+7. Werkt het? Verwijder `test.ipynb` weer: rechtermuisknop op het bestand → **Delete**.
+
+---
+
+## Stap 6. Klaar met de setup!
+
+Ga nu naar je eerste opdracht. Open in de Explorer het teambestand van jouw team:
+
+`casus_afkalving` → `team_<jouw nummer>` → `TEAM_<jouw nummer>.md`
+
+Zit je in team 3? Dan open je `casus_afkalving` → `team_3` → `TEAM_3.md`.
+
+Daar staat wat je samen met je team gaat doen. Ook als je straks met casus waterdiepte begint, start je met dit bestand.
+
+---
 
 ## Mappenstructuur
 
 ```
 <repo-naam>/
-├── data/          # datasets
-├── notebooks/     # verkennende notebooks
-├── src/           # herbruikbare Python-code
+├── casus_afkalving/
+│   ├── data/              # data voor casus afkalving (niet aanpassen)
+│   ├── team_1/
+│   │   └── TEAM_1.md      # teambestand met eerste opdracht voor team 1
+│   ├── team_2/
+│   │   └── TEAM_2.md
+│   ├── team_3/
+│   │   └── TEAM_3.md
+│   └── team_4/
+│       └── TEAM_4.md
+├── casus_waterdiepte/
+│   ├── data/              # data voor casus waterdiepte (niet aanpassen)
+│   ├── team_1/
+│   ├── team_2/
+│   ├── team_3/
+│   └── team_4/
 ├── requirements.txt
-└── README.md
+└── README.md              # dit bestand
 ```
-
-*(Pas aan naar de daadwerkelijke structuur.)*
-from pathlib import Path
-
-CASES = ["casus_afkalving", "casus_waterdiepte"]   # your case folder names
-TEAMS = 4
-
-for case in CASES:
-    for t in range(1, TEAMS + 1):
-        folder = Path(case) / f"team_{t}"
-        folder.mkdir(parents=True, exist_ok=True)
-        (folder / "README.md").write_text(
-            f"# Team {t}\n\n**Teamnaam:** \n\n**Teamleden:**\n\n- \n",
-            encoding="utf-8",
-        )
