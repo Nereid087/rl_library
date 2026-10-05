@@ -200,24 +200,56 @@ In deze repository zit een eigen Python-library: `rijnland_core`. Die installeer
 
 ## Stap 7. Klaar met de setup!
 
-Ga nu naar je eerste opdracht. Open in de Explorer het teambestand van jouw team:
+Je bent nu klaar met de setup! Kies een van de casussen en blijf in je eigen team-map en eventueel team-branch.
 
-`casus_afkalving` → `team_<jouw nummer>` → `TEAM_<jouw nummer>.md`
+## Tijdens de hackathon: samenwerken met Git
 
-Zit je in team 3? Dan open je `casus_afkalving` → `team_3` → `TEAM_3.md`.
+Je hele team werkt op dezelfde branch. Houd je aan deze afspraken, dan overschrijf je elkaars werk niet.
 
-Daar staat wat je samen met je team gaat doen. Ook als je straks met casus waterdiepte begint, start je met dit bestand.
+1. **Werk in je eigen notebook.** Zet je naam in de bestandsnaam, bijvoorbeeld `sanne_verkenning.ipynb`. Werk nooit met twee mensen tegelijk in hetzelfde notebook.
+2. **Haal eerst de nieuwste versie op** voordat je begint.
+3. **Deel je werk minstens elk uur**, en altijd voor een pauze.
+4. **Sla je notebook op** voordat je commit: `Ctrl+S` (Mac: `Cmd+S`).
+5. **Pas niets aan in de map `data`.**
 
+### Route A: GitHub Desktop
+**Nieuwste versie ophalen:** klik bovenin op **Fetch origin**. Verschijnt er **Pull origin**? Klik daarop.
+
+**Je werk opslaan en delen:**
+
+1. Links zie je je gewijzigde bestanden. Typ linksonder bij **Summary** een korte beschrijving.
+2. Klik op **Commit to team-1**.
+3. Klik bovenin op **Push origin**. Staat er **Pull origin**? Klik daar eerst op, daarna op **Push origin**.
+
+### Route B: Terminal
+Nieuwste versie ophalen:
+
+```bash
+git pull --no-edit
+```
+
+Je werk opslaan en delen:
+
+```bash
+git add .
+git commit -m "Korte beschrijving van wat je deed"
+git pull --no-edit
+git push
+```
+
+### Melding over een conflict?
+
+Laat het weten aan Farisch of Isabel, of aan een teamgenoot met Git-kennis.
 ---
+
 
 ## Mappenstructuur
 
 ```
 <repo-naam>/
 ├── casus_afkalving/
-│   ├── data/              # data voor casus afkalving (niet aanpassen)
 │   ├── team_1/
-│   │   └── TEAM_1.md      # teambestand met eerste opdracht voor team 1
+│   │   └── TEAM_1.md     
 │   ├── team_2/
 │   │   └── TEAM_2.md
 │   ├── team_3/
@@ -225,7 +257,6 @@ Daar staat wat je samen met je team gaat doen. Ook als je straks met casus water
 │   └── team_4/
 │       └── TEAM_4.md
 ├── casus_waterdiepte/
-│   ├── data/              # data voor casus waterdiepte (niet aanpassen)
 │   ├── team_1/
 │   ├── team_2/
 │   ├── team_3/
