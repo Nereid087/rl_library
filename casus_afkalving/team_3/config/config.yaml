@@ -1,0 +1,54 @@
+crs: EPSG:28992
+
+keringen:
+  service_url: https://rijnland.enl-mcs.nl/arcgis/rest/services
+  # PLACEHOLDER: vul de juiste service naam in zodra de laag is gekozen,
+  # bijvoorbeeld "Primaire_kering" of "Regionale_kering".
+  service: Regionale_kering
+  laag: 0
+  # PLACEHOLDER: veldnamen zoals ze in de FeatureServer/MapServer voorkomen.
+  id_field: CODE
+  type_field: TYPEWATERKERING
+
+watergangen:
+  jaren:
+    #"2009": data/watergangen_2009.gpkg
+    "2013": C:/Sandbox/Python/Data optimisten/data/leggers__legger_2013.gpkg
+    #"2018": data/watergangen_2018.gpkg
+    #"2021": data/watergangen_2021.gpkg
+    #"2024": data/watergangen_2024.gpkg
+    vigerend: C:/Sandbox/Python/Data optimisten/data/leggers__legger_vigerend.gpkg
+  # PLACEHOLDER: per jaar optioneel een laagnaam, nodig voor FileGDB-bronnen
+  # met meerdere lagen. Laat leeg (null) als het bestand maar één laag heeft.
+  lagen:
+    #"2009": null
+    "2013": null
+    #"2018": null
+    #"2021": null
+    #"2024": null
+    vigerend: null
+  # PLACEHOLDER: peildatum of extractiedatum van de vigerende legger, nodig
+  # om delta_per_jaar_m te kunnen berekenen voor vergelijkingen met "vigerend".
+  vigerend_peildatum: null
+  # PLACEHOLDER: brondatumveld per jaar, alleen gebruikt als een jaar geen
+  # vast kalenderjaar vertegenwoordigt (zoals "vigerend").
+  jaar_datums:
+    #"2009": "2009-01-01"
+    "2013": "2013-01-01"
+    #"2018": "2018-01-01"
+    #"2021": "2021-01-01"
+    #"2024": "2024-01-01"
+
+analyse:
+  kering_buffer_m: 50.0
+  meetpunt_interval_m: 10.0
+  profiel_lengte_m: 75.0
+  richting_sample_m: 1.0
+  max_gap_m: 15.0
+  min_hotspot_points: 2
+  vergelijkingen:
+    - ["2013", "vigerend"]
+
+output:
+  directory: output
+  geopackage: afkalving_analyse.gpkg

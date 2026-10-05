@@ -12,6 +12,8 @@ dependencies = [
     "pandas",
     "geopandas",
     "requests",
+    "pyogrio",
+    "PyYAML",
 ]
 
 [tool.setuptools.packages.find]
