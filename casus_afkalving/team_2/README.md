@@ -1,4 +1,4 @@
-# Team 2
+# Team 2 - Joni, Jaap, Tessi
 
 **Teamnaam:** 
 
