@@ -4,4 +4,6 @@
 
 **Teamleden:**
 
-- 
+- Rojina
+- Patrick
+- Lars 
