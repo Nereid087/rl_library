@@ -1,7 +1,9 @@
-# Team 2 - Jaap, Joni, Tessi
+# Team 2
 
 **Teamnaam:** 
 
 **Teamleden:**
 
-- 
+- Jaap
+- Joni
+- Tessi
