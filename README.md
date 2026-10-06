@@ -19,21 +19,21 @@ Controleer dat je het volgende hebt:
 
 Je kunt op twee manieren met Git werken. Kies er **één** en volg in de rest van deze README alleen de stappen voor jouw keuze.
 
-| | **Route A: Terminal** | **Route B: GitHub Desktop** |
+| | **Route A: GitHub Desktop** | **Route B: Terminal** |
 |---|---|---|
-| Wat is het? | Je typt Git-commando's in de terminal van VS Code | Een programma met knoppen voor Git |
-| Wat heb je nodig? | Git geïnstalleerd op je laptop | [GitHub Desktop](https://desktop.github.com) geïnstalleerd |
-| Geschikt voor | Je hebt al eens met Git gewerkt | Je hebt nog nooit met Git gewerkt |
+| Wat is het? | Een programma met knoppen voor Git | Je typt Git-commando's in de terminal van VS Code |
+| Wat heb je nodig? | [GitHub Desktop](https://desktop.github.com) geïnstalleerd | Git geïnstalleerd op je laptop |
+| Geschikt voor | Je hebt nog nooit met Git gewerkt | Je hebt al eens met Git gewerkt |
 
-**Route A: controleer of Git geïnstalleerd is.** Open VS Code, klik bovenin op **Terminal → New Terminal** en typ:
+**Route A: log in bij GitHub Desktop.** Open GitHub Desktop en log in met je GitHub-account. Op Windows: **File → Options → Accounts**. Op Mac: **GitHub Desktop → Settings → Accounts**. Klik op **Sign in** en volg de stappen in je browser.
+
+**Route B: controleer of Git geïnstalleerd is.** Open VS Code, klik bovenin op **Terminal → New Terminal** en typ:
 
 ```bash
 git --version
 ```
 
 Zie je iets als `git version 2.45.0`? Dan is Git geïnstalleerd. Zie je een foutmelding? Installeer Git via [git-scm.com](https://git-scm.com/downloads), sluit VS Code helemaal af en open het opnieuw.
-
-**Route B: log in bij GitHub Desktop.** Open GitHub Desktop en log in met je GitHub-account. Op Windows: **File → Options → Accounts**. Op Mac: **GitHub Desktop → Settings → Accounts**. Klik op **Sign in** en volg de stappen in je browser.
 
 ---
 
@@ -43,7 +43,16 @@ Met clonen maak je een kopie van de repository op je eigen laptop.
 
 > **Heb je al een venv uit de Python-lessen?** Zet de repository dan *naast* je venv-map, niet erin.
 
-### Route A: Terminal
+### Route A: GitHub Desktop
+
+1. Open GitHub Desktop.
+2. Klik op **File → Clone repository**.
+3. Klik bovenin op het tabblad **GitHub.com**.
+4. Klik in de lijst op **<repo-naam>**. Staat hij er niet tussen? Dan heb je de uitnodiging nog niet geaccepteerd (zie stap 0).
+5. Onder **Local path** zie je waar de map komt. Onthoud dit pad.
+6. Klik op **Clone**.
+
+### Route B: Terminal
 
 1. Open VS Code en open een terminal: **Terminal → New Terminal**.
 2. Ga naar de map waar je het project wilt hebben. Bijvoorbeeld je map Documenten:
@@ -70,15 +79,6 @@ Met clonen maak je een kopie van de repository op je eigen laptop.
    git config --global pull.rebase false
    ```
 
-### Route B: GitHub Desktop
-
-1. Open GitHub Desktop.
-2. Klik op **File → Clone repository**.
-3. Klik bovenin op het tabblad **GitHub.com**.
-4. Klik in de lijst op **<repo-naam>**. Staat hij er niet tussen? Dan heb je de uitnodiging nog niet geaccepteerd (zie stap 0).
-5. Onder **Local path** zie je waar de map komt. Onthoud dit pad.
-6. Klik op **Clone**.
-
 ---
 
 ## Stap 2. Ga naar de branch van je team
@@ -89,7 +89,13 @@ Je werkt **nooit** op de branch `main`. Daar staat alleen de startversie.
 
 In de voorbeelden hieronder staat `team-1`. **Vervang `1` door jouw teamnummer.**
 
-### Route A: Terminal
+### Route A: GitHub Desktop
+
+1. Klik bovenin op **Current branch**.
+2. Klik in de lijst op **team-1**.
+3. Controleer: bovenin bij **Current branch** staat nu `team-1`.
+
+### Route B: Terminal
 
 1. Typ in de terminal (je zit nog in de map `<repo-naam>`):
 
@@ -105,24 +111,18 @@ In de voorbeelden hieronder staat `team-1`. **Vervang `1` door jouw teamnummer.*
 
    Op de eerste regel moet staan: `On branch team-1`.
 
-### Route B: GitHub Desktop
-
-1. Klik bovenin op **Current branch**.
-2. Klik in de lijst op **team-1**.
-3. Controleer: bovenin bij **Current branch** staat nu `team-1`.
-
 ---
 
 ## Stap 3. Open de repository in VS Code
 
-### Route A: Terminal
+### Route A: GitHub Desktop
+
+1. Klik in GitHub Desktop op **Repository → Open in Visual Studio Code**.
+
+### Route B: Terminal
 
 1. Klik in VS Code op **File → Open Folder…**
 2. Ga naar de map `<repo-naam>` die je in stap 1 hebt gemaakt en klik op **Openen** (Mac: **Open**).
-
-### Route B: GitHub Desktop
-
-1. Klik in GitHub Desktop op **Repository → Open in Visual Studio Code**.
 
 ### Controleer (beide routes)
 
@@ -200,24 +200,56 @@ In deze repository zit een eigen Python-library: `rijnland_core`. Die installeer
 
 ## Stap 7. Klaar met de setup!
 
-Ga nu naar je eerste opdracht. Open in de Explorer het teambestand van jouw team:
+Je bent nu klaar met de setup! Kies een van de casussen en blijf in je eigen team-map en eventueel team-branch.
 
-`casus_afkalving` → `team_<jouw nummer>` → `TEAM_<jouw nummer>.md`
+## Tijdens de hackathon: samenwerken met Git
 
-Zit je in team 3? Dan open je `casus_afkalving` → `team_3` → `TEAM_3.md`.
+Je hele team werkt op dezelfde branch. Houd je aan deze afspraken, dan overschrijf je elkaars werk niet.
 
-Daar staat wat je samen met je team gaat doen. Ook als je straks met casus waterdiepte begint, start je met dit bestand.
+1. **Werk in je eigen notebook.** Zet je naam in de bestandsnaam, bijvoorbeeld `sanne_verkenning.ipynb`. Werk nooit met twee mensen tegelijk in hetzelfde notebook.
+2. **Haal eerst de nieuwste versie op** voordat je begint.
+3. **Deel je werk minstens elk uur**, en altijd voor een pauze.
+4. **Sla je notebook op** voordat je commit: `Ctrl+S` (Mac: `Cmd+S`).
+5. **Pas niets aan in de map `data`.**
 
+### Route A: GitHub Desktop
+**Nieuwste versie ophalen:** klik bovenin op **Fetch origin**. Verschijnt er **Pull origin**? Klik daarop.
+
+**Je werk opslaan en delen:**
+
+1. Links zie je je gewijzigde bestanden. Typ linksonder bij **Summary** een korte beschrijving.
+2. Klik op **Commit to team-1**.
+3. Klik bovenin op **Push origin**. Staat er **Pull origin**? Klik daar eerst op, daarna op **Push origin**.
+
+### Route B: Terminal
+Nieuwste versie ophalen:
+
+```bash
+git pull --no-edit
+```
+
+Je werk opslaan en delen:
+
+```bash
+git add .
+git commit -m "Korte beschrijving van wat je deed"
+git pull --no-edit
+git push
+```
+
+### Melding over een conflict?
+
+Laat het weten aan Farisch of Isabel, of aan een teamgenoot met Git-kennis.
 ---
+
 
 ## Mappenstructuur
 
 ```
 <repo-naam>/
 ├── casus_afkalving/
-│   ├── data/              # data voor casus afkalving (niet aanpassen)
 │   ├── team_1/
-│   │   └── TEAM_1.md      # teambestand met eerste opdracht voor team 1
+│   │   └── TEAM_1.md     
 │   ├── team_2/
 │   │   └── TEAM_2.md
 │   ├── team_3/
@@ -225,7 +257,6 @@ Daar staat wat je samen met je team gaat doen. Ook als je straks met casus water
 │   └── team_4/
 │       └── TEAM_4.md
 ├── casus_waterdiepte/
-│   ├── data/              # data voor casus waterdiepte (niet aanpassen)
 │   ├── team_1/
 │   ├── team_2/
 │   ├── team_3/
