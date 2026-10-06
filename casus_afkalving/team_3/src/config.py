@@ -46,6 +46,7 @@ class AnalyseConfig:
     max_gap_m: float
     min_hotspot_points: int
     vergelijkingen: list[tuple[str, str]]
+    top_percentage_langste_keringen: float
 
 
 @dataclass(frozen=True)
@@ -145,6 +146,9 @@ def _parse_analyse(raw: dict[str, Any]) -> AnalyseConfig:
         max_gap_m=float(raw.get("max_gap_m", 15.0)),
         min_hotspot_points=int(raw.get("min_hotspot_points", 2)),
         vergelijkingen=vergelijkingen,
+        top_percentage_langste_keringen=float(
+            raw.get("top_percentage_langste_keringen", 100.0)
+        ),
     )
 
 

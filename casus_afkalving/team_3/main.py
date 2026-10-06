@@ -13,6 +13,7 @@ from src.analysis.changes import calculate_changes
 from src.analysis.hotspots import build_hotspots
 from src.analysis.matching import select_relevant_watergangen
 from src.analysis.profiles import create_cross_sections, create_measurement_points
+from src.analysis.selectie import selecteer_langste_keringen
 from src.analysis.shoreline import find_nearest_shoreline_point
 from src.config import ConfigurationError, PipelineConfig, load_config
 from src.data_access.keringen import load_keringen
@@ -91,6 +92,12 @@ def voer_pipeline_uit(config: PipelineConfig) -> dict[str, object]:
         True,
         lambda: load_keringen(config.keringen, target_crs=config.crs),
     )
+    keringen = selecteer_langste_keringen(
+        keringen, config.analyse.top_percentage_langste_keringen
+    )
+    # Cachebestanden die van de kering-subset afhangen krijgen een suffix,
+    # zodat het wijzigen van het percentage geen verouderde cache hergebruikt.
+    subset_suffix = f"_top{config.analyse.top_percentage_langste_keringen:g}"
 
     LOGGER.info("Stap 2: watergangen inlezen per leggerjaar")
     watergangen_per_jaar = {
@@ -109,7 +116,7 @@ def voer_pipeline_uit(config: PipelineConfig) -> dict[str, object]:
 
     LOGGER.info("Stap 3: relevante watergangen selecteren")
     koppelingen = _cache(
-        "koppelingen.csv",
+        f"koppelingen{subset_suffix}.csv",
         False,
         lambda: select_relevant_watergangen(
             keringen, alle_watergangen, config.analyse.kering_buffer_m
@@ -118,14 +125,14 @@ def voer_pipeline_uit(config: PipelineConfig) -> dict[str, object]:
 
     LOGGER.info("Stap 4: meetpunten genereren")
     meetpunten = _cache(
-        "meetpunten.gpkg",
+        f"meetpunten{subset_suffix}.gpkg",
         True,
         lambda: create_measurement_points(keringen, config.analyse.meetpunt_interval_m),
     )
 
     LOGGER.info("Stap 5: dwarsprofielen genereren")
     dwarsprofielen = _cache(
-        "dwarsprofielen.gpkg",
+        f"dwarsprofielen{subset_suffix}.gpkg",
         True,
         lambda: create_cross_sections(
             keringen,
@@ -140,7 +147,7 @@ def voer_pipeline_uit(config: PipelineConfig) -> dict[str, object]:
         jaar for paar in config.analyse.vergelijkingen for jaar in paar
     }
     metingen = _cache(
-        "metingen.gpkg",
+        f"metingen{subset_suffix}.gpkg",
         True,
         lambda: bepaal_waterzijde_metingen(
             meetpunten, dwarsprofielen, koppelingen, alle_watergangen, jaren_in_vergelijkingen
@@ -149,7 +156,7 @@ def voer_pipeline_uit(config: PipelineConfig) -> dict[str, object]:
 
     LOGGER.info("Stap 7: veranderingen berekenen")
     veranderingen = _cache(
-        "veranderingen.gpkg",
+        f"veranderingen{subset_suffix}.gpkg",
         True,
         lambda: calculate_changes(
             metingen, config.analyse.vergelijkingen, config.watergangen.jaar_datums
@@ -158,7 +165,7 @@ def voer_pipeline_uit(config: PipelineConfig) -> dict[str, object]:
 
     LOGGER.info("Stap 8: hotspots samenstellen")
     hotspots = _cache(
-        "hotspots.gpkg",
+        f"hotspots{subset_suffix}.gpkg",
         True,
         lambda: build_hotspots(
             veranderingen,
@@ -235,8 +242,11 @@ def bepaal_waterzijde_metingen(
     records: list[dict[str, object]] = []
     aantal_ongeldig = 0
     aantal_fouten = 0
-
     for _, profiel in dwarsprofielen.iterrows():
+        LOGGER.info(
+            "Verwerk profiel %s",
+            profiel["profiel_id"],
+        )
         if profiel["profiel_id"] not in meetpunten_per_profiel.index:
             LOGGER.warning(
                 "Geen meetpunt gevonden voor profiel %s; overgeslagen",
@@ -251,6 +261,11 @@ def bepaal_waterzijde_metingen(
         )
 
         for jaar in jaren:
+            LOGGER.info(
+                "Bepaal waterzijde voor profiel %s, jaar %s",
+                profiel["profiel_id"],
+                jaar,
+            )
             kandidaten = watergangen_per_jaar[jaar]
             kandidaten = kandidaten[kandidaten["watergang_id"].isin(relevante_ids)]
 
@@ -294,6 +309,10 @@ def bepaal_waterzijde_metingen(
                     "meetstatus": resultaat.meetstatus,
                     "geometry": resultaat.geometry,
                 }
+            )
+            LOGGER.info(
+                "Count of records: %s \n",
+                len(records),
             )
 
     geldig = sum(

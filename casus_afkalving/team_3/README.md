@@ -60,6 +60,11 @@ draait:
   veld leeg.
 - `analyse.*`: bufferafstand, meetpunt-interval, profiellengte en
   hotspot-parameters; startwaarden komen uit het implementatieplan.
+- `analyse.top_percentage_langste_keringen`: beperkt de analyse tot de
+  langste x% van de keringen (op lengte). Handig om het aantal
+  berekeningen tijdens testen te verkleinen; 100 = alle keringen. Het
+  wijzigen van deze waarde gebruikt automatisch een andere cache-subset
+  (zie hieronder), dus een eerdere, bredere/smallere run blijft intact.
 - `output.gebruik_cache` / `output.forceer_herberekening` / `output.cache_directory`:
   zie "Tussenresultaten cachen" hieronder.
 

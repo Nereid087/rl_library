@@ -12,20 +12,20 @@ keringen:
 
 watergangen:
   jaren:
-    #"2009": data/watergangen_2009.gpkg
+    "2009": C:/Sandbox/Python/Data optimisten/data/leggers__legger_2009.gpkg
     "2013": C:/Sandbox/Python/Data optimisten/data/leggers__legger_2013.gpkg
-    #"2018": data/watergangen_2018.gpkg
-    #"2021": data/watergangen_2021.gpkg
-    #"2024": data/watergangen_2024.gpkg
+    "2018": C:/Sandbox/Python/Data optimisten/data/leggers__legger_2018.gpkg
+    "2021": C:/Sandbox/Python/Data optimisten/data/leggers__legger_2021.gpkg
+    "2024": C:/Sandbox/Python/Data optimisten/data/leggers__legger_2024.gpkg
     vigerend: C:/Sandbox/Python/Data optimisten/data/leggers__legger_vigerend.gpkg
   # PLACEHOLDER: per jaar optioneel een laagnaam, nodig voor FileGDB-bronnen
   # met meerdere lagen. Laat leeg (null) als het bestand maar één laag heeft.
   lagen:
-    #"2009": null
+    "2009": null
     "2013": null
-    #"2018": null
-    #"2021": null
-    #"2024": null
+    "2018": null
+    "2021": null
+    "2024": null
     vigerend: null
   # PLACEHOLDER: peildatum of extractiedatum van de vigerende legger, nodig
   # om delta_per_jaar_m te kunnen berekenen voor vergelijkingen met "vigerend".
@@ -33,11 +33,11 @@ watergangen:
   # PLACEHOLDER: brondatumveld per jaar, alleen gebruikt als een jaar geen
   # vast kalenderjaar vertegenwoordigt (zoals "vigerend").
   jaar_datums:
-    #"2009": "2009-01-01"
+    "2009": "2009-01-01"
     "2013": "2013-01-01"
-    #"2018": "2018-01-01"
-    #"2021": "2021-01-01"
-    #"2024": "2024-01-01"
+    "2018": "2018-01-01"
+    "2021": "2021-01-01"
+    "2024": "2024-01-01"
 
 analyse:
   kering_buffer_m: 50.0
@@ -48,10 +48,14 @@ analyse:
   min_hotspot_points: 2
   vergelijkingen:
     - ["2013", "vigerend"]
+  # Beperk de analyse tot de langste x% van de keringen (op lengte), om het
+  # aantal meetpunten/dwarsprofielen/waterzijdemetingen te verkleinen.
+  # 100 = alle keringen.
+  top_percentage_langste_keringen: 10.0
 
 output:
   directory: output
-  geopackage: afkalving_analyse.gpkg
+  geopackage: afkalving_analyse2.gpkg
   # Tussenresultaten per pipelinestap worden hier weggeschreven en bij een
   # volgende run ingelezen in plaats van opnieuw berekend, zolang
   # gebruik_cache true is. Zet forceer_herberekening op true (of verwijder
