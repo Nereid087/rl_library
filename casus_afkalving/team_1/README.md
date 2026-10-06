@@ -4,5 +4,4 @@
 
 **Teamleden:**
 
-- test
-- test ivo
+- 

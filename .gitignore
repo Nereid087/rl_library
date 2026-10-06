@@ -52,7 +52,8 @@ dmypy.json
 # Data-output (data_writer / PDOK_downloader) — geen data in de library-repo.
 # Testdata hoort in tests/fixtures/ en wordt wél meegenomen.
 # ---------------------------------------------------------------------------
-data/
+casus_afkalving/team_1/data/
+casus_afkalving/team_1/ouput/
 *output/
 *.csv
 *.parquet
