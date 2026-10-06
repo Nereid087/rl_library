@@ -48,6 +48,7 @@ def calculate_changes(
     """
     jaar_datums = jaar_datums or {}
     bruikbaar = measurements[measurements["afstand_tot_waterzijde_m"].notna()]
+    bruikbaar = _dedupliceer_profiel_jaar(bruikbaar)
 
     records: list[dict[str, object]] = []
     for jaar_oud, jaar_nieuw in comparisons:
@@ -90,6 +91,23 @@ def calculate_changes(
     return gpd.GeoDataFrame(
         records, columns=OUTPUT_COLUMNS, geometry="geometry", crs=measurements.crs
     )
+
+
+def _dedupliceer_profiel_jaar(measurements: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
+    """Keep only the first measurement per (profiel_id, jaar) combination.
+
+    Voorkomt dat een per ongeluk dubbel gemeten profiel/jaar-combinatie
+    verderop tot een niet-scalaire (Series) opzoeking en een crash leidt.
+    """
+    duplicaten = measurements.duplicated(subset=["profiel_id", "jaar"])
+    if duplicaten.any():
+        LOGGER.warning(
+            "%s metingen met een dubbele profiel_id/jaar-combinatie; "
+            "alleen de eerste wordt gebruikt.",
+            int(duplicaten.sum()),
+        )
+        measurements = measurements[~duplicaten]
+    return measurements
 
 
 def _bepaal_periode_jaren(

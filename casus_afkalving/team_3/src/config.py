@@ -50,10 +50,13 @@ class AnalyseConfig:
 
 @dataclass(frozen=True)
 class OutputConfig:
-    """Configuration for the GIS and CSV output location."""
+    """Configuration for the GIS/CSV output and the intermediate-result cache."""
 
     directory: Path
     geopackage: str
+    cache_directory: Path
+    gebruik_cache: bool
+    forceer_herberekening: bool
 
 
 @dataclass(frozen=True)
@@ -149,6 +152,9 @@ def _parse_output(raw: dict[str, Any], project_map: Path) -> OutputConfig:
     return OutputConfig(
         directory=_los_pad_op(raw.get("directory", "output"), project_map),
         geopackage=raw.get("geopackage", "afkalving_analyse.gpkg"),
+        cache_directory=_los_pad_op(raw.get("cache_directory", "cache"), project_map),
+        gebruik_cache=bool(raw.get("gebruik_cache", True)),
+        forceer_herberekening=bool(raw.get("forceer_herberekening", False)),
     )
 
 

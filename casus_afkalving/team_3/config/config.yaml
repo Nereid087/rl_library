@@ -52,3 +52,11 @@ analyse:
 output:
   directory: output
   geopackage: afkalving_analyse.gpkg
+  # Tussenresultaten per pipelinestap worden hier weggeschreven en bij een
+  # volgende run ingelezen in plaats van opnieuw berekend, zolang
+  # gebruik_cache true is. Zet forceer_herberekening op true (of verwijder
+  # de cache-map) om alles opnieuw te berekenen, bijvoorbeeld na een
+  # configuratiewijziging.
+  cache_directory: cache
+  gebruik_cache: true
+  forceer_herberekening: false

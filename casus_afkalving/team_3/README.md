@@ -60,6 +60,8 @@ draait:
   veld leeg.
 - `analyse.*`: bufferafstand, meetpunt-interval, profiellengte en
   hotspot-parameters; startwaarden komen uit het implementatieplan.
+- `output.gebruik_cache` / `output.forceer_herberekening` / `output.cache_directory`:
+  zie "Tussenresultaten cachen" hieronder.
 
 ### Uitvoeren
 
@@ -73,7 +75,19 @@ is, of er geen bruikbare geometrieën overblijven. Resultaten komen terecht
 in `output/afkalving_analyse.gpkg` (lagen `keringen`, `meetpunten`,
 `dwarsprofielen`, `waterzijde_metingen`, `veranderingen`, `hotspots`) en in
 `output/metingen.csv`, `output/veranderingen.csv`, `output/hotspots.csv`.
+### Tussenresultaten cachen
 
+Elke pipelinestap (keringen ophalen, watergangen inlezen, matching,
+meetpunten, dwarsprofielen, waterzijdemetingen, veranderingen, hotspots)
+schrijft zijn resultaat weg in `output.cache_directory` (standaard
+`cache/`). Bestaat dat bestand al bij een volgende run, dan wordt het
+ingelezen in plaats van opnieuw berekend — handig als een latere stap
+faalt en je niet alles opnieuw wilt doorrekenen.
+
+- Zet `output.gebruik_cache: false` om de cache volledig uit te schakelen.
+- Zet `output.forceer_herberekening: true` (of verwijder de `cache/`-map)
+  om na een configuratiewijziging alles opnieuw te berekenen; de nieuwe
+  resultaten worden daarna weer gecached.
 ### Testen
 
 ```bash
