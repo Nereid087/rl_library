@@ -53,7 +53,7 @@ dmypy.json
 # Testdata hoort in tests/fixtures/ en wordt wél meegenomen.
 # ---------------------------------------------------------------------------
 data/
-output/
+*output/
 *.csv
 *.parquet
 *.geojson
